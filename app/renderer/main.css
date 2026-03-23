@@ -659,7 +659,7 @@ img.issue-icon.warning {
   bottom: 0;
   right: 0;
   left: 50%;
-  font-family: system-ui, -apple-system, Geneva, sans-serif;
+  font-family: "Courier New", Courier, monospace;
   font-weight: 400;
   font-size: 14pt;
   color: #555;
@@ -677,7 +677,7 @@ img.issue-icon.warning {
 
 #player .innerText p.customInstruction {
   color: rgb(179, 94, 94);
-  font-family: Monaco, 'Courier New', monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 #player .innerText p.alignCenter {
@@ -689,7 +689,7 @@ img.issue-icon.warning {
 }
 
 #player .innerText p.knotHeading {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: bold;
   font-size: 0.85em;
   text-transform: uppercase;
@@ -745,7 +745,7 @@ img.issue-icon.warning {
 #player p.tags, #player p.choice .tags {
   color: #AAA;
   text-align: center;
-  font-family: monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 #player p.choice .tags {
