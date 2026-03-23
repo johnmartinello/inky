@@ -109,6 +109,12 @@
     color: #999;
 }
 
+.window.focus #player .innerText p.knotHeading {
+    color: #777;
+    border-top-color: #333;
+    border-bottom-color: #333;
+}
+
 .window.focus #editor .ace-error {
     background: #580000
 }

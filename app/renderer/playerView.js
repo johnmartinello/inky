@@ -6,7 +6,7 @@ var lastFadeTime = 0;
 var $textBuffer = null;
 var instructionPrefix = null;
 var animationEnabled = true;
-const alignmentPrefixRegex = /^(\s*)>>>(center|right)\s+/i;
+const alignmentPrefixRegex = /^(\s*)>>>(center|right|scene)\s+/i;
 
 document.addEventListener("keyup", function(){
     $("#player").removeClass("altKey");
@@ -124,9 +124,14 @@ function addTextSection(text)
 
     var alignmentPrefixMatch = text.match(alignmentPrefixRegex);
     if( alignmentPrefixMatch ) {
-        var alignment = alignmentPrefixMatch[2].toLowerCase();
-        if( alignment === "center" ) $paragraph.addClass("alignCenter");
-        if( alignment === "right" ) $paragraph.addClass("alignRight");
+        var prefixType = alignmentPrefixMatch[2].toLowerCase();
+        if( prefixType === "scene" ) {
+            var title = text.substring(alignmentPrefixMatch[0].length).trim();
+            addKnotHeading(title);
+            return;
+        }
+        if( prefixType === "center" ) $paragraph.addClass("alignCenter");
+        if( prefixType === "right" ) $paragraph.addClass("alignRight");
         displayText = text.substring(alignmentPrefixMatch[0].length);
     }
 
@@ -178,6 +183,15 @@ function addTextSection(text)
 
     if( animationEnabled && shouldAnimate() )
         fadeIn($paragraph);
+}
+
+function addKnotHeading(title)
+{
+    var $heading = $("<p class='knotHeading'></p>").text(title);
+    $textBuffer.append($heading);
+
+    if( animationEnabled && shouldAnimate() )
+        fadeIn($heading);
 }
 
 function addTags(tags)
@@ -314,6 +328,7 @@ exports.PlayerView = {
     contentReady: contentReady,
     prepareForNewPlaythrough: prepareForNewPlaythrough,
     addTextSection: addTextSection,
+    addKnotHeading: addKnotHeading,
     addTags: addTags,
     addChoice: addChoice,
     addTerminatingMessage: addTerminatingMessage,

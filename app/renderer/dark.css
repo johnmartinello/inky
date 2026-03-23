@@ -116,6 +116,12 @@
     color: #999;
 }
 
+.window.dark #player .innerText p.knotHeading {
+    color: #aaa;
+    border-top-color: #444;
+    border-bottom-color: #444;
+}
+
 
 .window.dark #player .innerText p.customInstruction {
     border-top-color: rgb(179, 94, 94);

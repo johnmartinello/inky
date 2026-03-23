@@ -495,7 +495,7 @@ var inkHighlightRules = function() {
             regex: /<>/
         }],
         "#alignmentPrefix": [{
-            regex: /^(\s*)(>>>(?:center|right)\s)(.*)/,
+            regex: /^(\s*)(>>>(?:center|right|scene)\s)(.*)/,
             token: [
                 "alignmentPrefix",             // whitespace
                 "alignmentPrefix.punctuation", // >>>center  or  >>>right

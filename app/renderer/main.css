@@ -649,6 +649,21 @@ img.issue-icon.warning {
   text-align: right;
 }
 
+#player .innerText p.knotHeading {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #444;
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+
 #player.altKey .innerText p span:hover {
   text-decoration: underline;
   cursor: pointer;
