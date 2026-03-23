@@ -6,6 +6,7 @@ var events = {
     rewind:   () => {},
     stepBack: () => {},
     togglePreview: () => {},
+    togglePageView: () => {},
     selectIssue: () => {},
     didSetTitle: () => {}
 };
@@ -142,6 +143,11 @@ $(document).ready(function() {
 
     $("#toolbar .preview-toggle.button").on("click", function(event) {
         events.togglePreview();
+        event.preventDefault();
+    });
+
+    $("#toolbar .pageview-toggle.button").on("click", function(event) {
+        events.togglePageView();
         event.preventDefault();
     });
 

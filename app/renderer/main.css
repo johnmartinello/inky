@@ -553,6 +553,45 @@ img.issue-icon.warning {
   background: #fff;
 }
 
+#main.editorHidden .twopane > .split {
+  display: none;
+}
+
+#main.editorHidden #editor {
+  display: none;
+}
+
+#main.editorHidden {
+  background: #efefef;
+}
+
+#main.editorHidden #player {
+  top: 18px;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  width: auto;
+  max-width: 700px;
+  margin: 0 auto;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  border-radius: 4px;
+}
+
+#main.editorHidden #player .scrollContainer {
+  overflow-x: hidden;
+}
+
+#main.editorHidden #player .innerText p {
+  padding: 0 50px;
+}
+
+#main.editorHidden #player .innerText {
+  padding-top: 20px;
+  padding-bottom: 80px;
+}
+
 #editor .ace-error {
   background: #ffd1d1;
   position:absolute;

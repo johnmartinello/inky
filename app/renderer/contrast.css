@@ -76,6 +76,15 @@
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
+.window.contrast #main.editorHidden {
+    background: #1f1f1f;
+}
+
+.window.contrast #main.editorHidden #player {
+    border-color: #4a4a4a;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
 
 .window.contrast .ace_editor .ace_marker-layer .ace_selection {
     background-color: #444;

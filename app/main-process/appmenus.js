@@ -327,6 +327,13 @@ function refresh() {
                     type: "checkbox",
                     checked: true,
                     click: callbacks.togglePreview
+                },
+                {
+                    label: i18n._("Page View (Preview Only)"),
+                    accelerator: 'CmdOrCtrl+Shift+O',
+                    type: "checkbox",
+                    checked: false,
+                    click: callbacks.togglePageView
                 }
 
             ]

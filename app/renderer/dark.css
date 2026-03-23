@@ -75,6 +75,16 @@
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
+.window.dark #main.editorHidden {
+    background: #1d1d1d;
+}
+
+.window.dark #main.editorHidden #player {
+    background-color: #282828;
+    border-color: #3a3a3a;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
 .window.dark #main.playerHidden #editor .ace_gutter-layer {
     background-color: #282828;
 }

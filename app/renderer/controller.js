@@ -27,15 +27,17 @@ const NavHistory = require("./navHistory.js").NavHistory;
 const GotoAnything = require("./goto.js").GotoAnything;
 const i18n = require("./i18n.js");
 
-let previewVisible = true;
+// "split" | "editorOnly" | "previewOnly"
+let viewMode = "split";
 let previewSplitState = null;
 
-function setPreviewToggleButtonVisible(visible) {
-    $("#toolbar .preview-toggle.button").toggleClass("selected", visible);
+function updateToolbarViewButtons() {
+    $("#toolbar .preview-toggle.button").toggleClass("selected", viewMode !== "editorOnly");
+    $("#toolbar .pageview-toggle.button").toggleClass("selected", viewMode === "previewOnly");
 }
 
-function setPreviewVisible(visible) {
-    if( previewVisible === visible )
+function setViewMode(mode) {
+    if( viewMode === mode )
         return;
 
     const $main = $("#main");
@@ -43,7 +45,7 @@ function setPreviewVisible(visible) {
     const $player = $("#player");
     const $split = $(".twopane > .split");
 
-    if( !visible ) {
+    if( viewMode === "split" ) {
         previewSplitState = {
             editorRight: $editor.get(0).style.right || "",
             editorWidth: $editor.get(0).style.width || "",
@@ -51,14 +53,18 @@ function setPreviewVisible(visible) {
             playerWidth: $player.get(0).style.width || "",
             splitLeft: $split.get(0).style.left || ""
         };
+    }
 
-        // Remove split.js inline layout so playerHidden CSS can fully control centering.
-        $editor.css({ right: "", width: "" });
-        $player.css({ left: "", width: "" });
-        $split.css({ left: "" });
+    $main.removeClass("playerHidden editorHidden");
+    $editor.css({ right: "", width: "" });
+    $player.css({ left: "", width: "" });
+    $split.css({ left: "" });
+
+    if( mode === "editorOnly" ) {
         $main.addClass("playerHidden");
+    } else if( mode === "previewOnly" ) {
+        $main.addClass("editorHidden");
     } else {
-        $main.removeClass("playerHidden");
         if( previewSplitState ) {
             $editor.css({
                 right: previewSplitState.editorRight,
@@ -72,11 +78,14 @@ function setPreviewVisible(visible) {
         }
     }
 
-    previewVisible = visible;
-    setPreviewToggleButtonVisible(visible);
+    viewMode = mode;
+    updateToolbarViewButtons();
 
-    // Delay a tick so Ace recalculates against final layout.
     setImmediate(() => ace.edit("editor").resize());
+}
+
+function setPreviewVisible(visible) {
+    setViewMode(visible ? "split" : "editorOnly");
 }
 
 InkProject.setEvents({
@@ -321,7 +330,8 @@ ExpressionWatchView.setEvents({
 
 ToolbarView.setEvents({
     toggleSidebar: (id, buttonId) => { NavView.toggle(id, buttonId); },
-    togglePreview: () => setPreviewVisible(!previewVisible),
+    togglePreview: () => setViewMode(viewMode === "editorOnly" ? "split" : "editorOnly"),
+    togglePageView: () => setViewMode(viewMode === "previewOnly" ? "split" : "previewOnly"),
     navigateBack: () => NavHistory.back(),
     navigateForward: () => NavHistory.forward(),
     selectIssue: gotoIssue,
@@ -391,6 +401,10 @@ ipc.on("set-autocomplete-disabled", (event, autoCompleteDisabled) => {
 
 ipc.on("set-preview-visible", (event, visible) => {
     setPreviewVisible(visible);
+});
+
+ipc.on("set-preview-only", (event, enabled) => {
+    setViewMode(enabled ? "previewOnly" : "split");
 });
 
 

@@ -165,6 +165,11 @@ app.on('ready', function () {
                 focusedWindow.webContents.send("set-preview-visible", item.checked);
             }
         },
+        togglePageView: (item, focusedWindow) => {
+            if( focusedWindow ) {
+                focusedWindow.webContents.send("set-preview-only", item.checked);
+            }
+        },
         nextIssue: (item, focusedWindow) => {
             focusedWindow.webContents.send("next-issue");
         },
