@@ -27,6 +27,58 @@ const NavHistory = require("./navHistory.js").NavHistory;
 const GotoAnything = require("./goto.js").GotoAnything;
 const i18n = require("./i18n.js");
 
+let previewVisible = true;
+let previewSplitState = null;
+
+function setPreviewToggleButtonVisible(visible) {
+    $("#toolbar .preview-toggle.button").toggleClass("selected", visible);
+}
+
+function setPreviewVisible(visible) {
+    if( previewVisible === visible )
+        return;
+
+    const $main = $("#main");
+    const $editor = $("#editor");
+    const $player = $("#player");
+    const $split = $(".twopane > .split");
+
+    if( !visible ) {
+        previewSplitState = {
+            editorRight: $editor.get(0).style.right || "",
+            editorWidth: $editor.get(0).style.width || "",
+            playerLeft: $player.get(0).style.left || "",
+            playerWidth: $player.get(0).style.width || "",
+            splitLeft: $split.get(0).style.left || ""
+        };
+
+        // Remove split.js inline layout so playerHidden CSS can fully control centering.
+        $editor.css({ right: "", width: "" });
+        $player.css({ left: "", width: "" });
+        $split.css({ left: "" });
+        $main.addClass("playerHidden");
+    } else {
+        $main.removeClass("playerHidden");
+        if( previewSplitState ) {
+            $editor.css({
+                right: previewSplitState.editorRight,
+                width: previewSplitState.editorWidth
+            });
+            $player.css({
+                left: previewSplitState.playerLeft,
+                width: previewSplitState.playerWidth
+            });
+            $split.css({ left: previewSplitState.splitLeft });
+        }
+    }
+
+    previewVisible = visible;
+    setPreviewToggleButtonVisible(visible);
+
+    // Delay a tick so Ace recalculates against final layout.
+    setImmediate(() => ace.edit("editor").resize());
+}
+
 InkProject.setEvents({
     "newProject": (project) => {
         EditorView.focus();
@@ -269,6 +321,7 @@ ExpressionWatchView.setEvents({
 
 ToolbarView.setEvents({
     toggleSidebar: (id, buttonId) => { NavView.toggle(id, buttonId); },
+    togglePreview: () => setPreviewVisible(!previewVisible),
     navigateBack: () => NavHistory.back(),
     navigateForward: () => NavHistory.forward(),
     selectIssue: gotoIssue,
@@ -334,6 +387,10 @@ ipc.on("set-animation-enabled", (event, animationEnabled) => {
 });
 ipc.on("set-autocomplete-disabled", (event, autoCompleteDisabled) => {
     EditorView.setAutoCompleteDisabled(autoCompleteDisabled)
+});
+
+ipc.on("set-preview-visible", (event, visible) => {
+    setPreviewVisible(visible);
 });
 
 

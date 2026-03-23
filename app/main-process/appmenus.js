@@ -320,6 +320,13 @@ function refresh() {
                     type: "checkbox",
                     checked: animationEnabled,
                     click: callbacks.toggleAnimation
+                },
+                {
+                    label: i18n._("Toggle Preview"),
+                    accelerator: 'CmdOrCtrl+Shift+P',
+                    type: "checkbox",
+                    checked: true,
+                    click: callbacks.togglePreview
                 }
 
             ]
