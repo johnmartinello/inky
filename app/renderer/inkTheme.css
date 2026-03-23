@@ -35,6 +35,11 @@
     color: red;
 }
 
+/* Alignment prefixes >>>center / >>>right */
+.ace_editor span.ace_alignmentPrefix {
+    color: #7b68ee;
+}
+
 #main.hideTags .ace_editor span.ace_tag {
     color: white;
 }

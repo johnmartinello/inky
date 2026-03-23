@@ -6,6 +6,7 @@ var lastFadeTime = 0;
 var $textBuffer = null;
 var instructionPrefix = null;
 var animationEnabled = true;
+const alignmentPrefixRegex = /^(\s*)>>>(center|right)\s+/i;
 
 document.addEventListener("keyup", function(){
     $("#player").removeClass("altKey");
@@ -114,16 +115,25 @@ function prepareForNewPlaythrough(sessionId) {
 function addTextSection(text)
 {
     var $paragraph = $("<p class='storyText'></p>");
+    var displayText = text;
 
     // Game-specific instruction prefix, e.g. >>> START CAMERA: Wide shot
     if( instructionPrefix && text.trim().startsWith(instructionPrefix) ) {
         $paragraph.addClass("customInstruction");
     }
 
+    var alignmentPrefixMatch = text.match(alignmentPrefixRegex);
+    if( alignmentPrefixMatch ) {
+        var alignment = alignmentPrefixMatch[2].toLowerCase();
+        if( alignment === "center" ) $paragraph.addClass("alignCenter");
+        if( alignment === "right" ) $paragraph.addClass("alignRight");
+        displayText = text.substring(alignmentPrefixMatch[0].length);
+    }
+
     // Split individual words into span tags, so that they can be underlined
     // when the user holds down the alt key, and so that they can be individually
     // clicked in order to jump to the source.
-    var splitIntoSpans = text.split(" ");
+    var splitIntoSpans = displayText.split(" ");
     var textAsSpans = "<span>" + splitIntoSpans.join("</span> <span>") + "</span>";
 
     $paragraph.html(textAsSpans);

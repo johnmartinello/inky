@@ -641,6 +641,14 @@ img.issue-icon.warning {
   font-family: Monaco, 'Courier New', monospace;
 }
 
+#player .innerText p.alignCenter {
+  text-align: center;
+}
+
+#player .innerText p.alignRight {
+  text-align: right;
+}
+
 #player.altKey .innerText p span:hover {
   text-decoration: underline;
   cursor: pointer;

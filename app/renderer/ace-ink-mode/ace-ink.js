@@ -494,6 +494,14 @@ var inkHighlightRules = function() {
             token: "glue",
             regex: /<>/
         }],
+        "#alignmentPrefix": [{
+            regex: /^(\s*)(>>>(?:center|right)\s)(.*)/,
+            token: [
+                "alignmentPrefix",             // whitespace
+                "alignmentPrefix.punctuation", // >>>center  or  >>>right
+                "alignmentPrefix"              // user content
+            ]
+        }],
         "#statements": [{
             include: "#comments"
         }, {
@@ -518,6 +526,8 @@ var inkHighlightRules = function() {
             include: "#endOfSection"
         }, {
             include: "#logicLine"
+        }, {
+            include: "#alignmentPrefix"
         }, {
             include: "#mixedContent"
         }, {
