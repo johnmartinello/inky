@@ -86,7 +86,11 @@ function contentReady() {
     // Scroll?
     if( shouldAnimate() ) {
         
-        var offset = newHeight + 60 - $scrollContainer.outerHeight(); // +60 because: ("#player .innerText { padding: 10px 0 50px 0; }")
+        // Account for current top/bottom padding, which changes across view modes.
+        var paddingTop = parseInt($textBuffer.css("padding-top"), 10) || 0;
+        var paddingBottom = parseInt($textBuffer.css("padding-bottom"), 10) || 0;
+        var totalPadding = paddingTop + paddingBottom;
+        var offset = newHeight + totalPadding - $scrollContainer.outerHeight();
 
         // Need to set previous, as it was reset when we reset height
         $scrollContainer.animate({scrollTop: savedScrollTop}, 0);
