@@ -203,3 +203,80 @@
 .window.dark .sidebar .nav-wrapper::-webkit-scrollbar-thumb {
     background: #323232;
 }
+
+.window.dark #main .content-tabs {
+    background: #141414;
+    border-bottom: 1px solid #282828;
+}
+
+.window.dark #main .content-tab {
+    color: #8e8e8e;
+    border-right: 1px solid #282828;
+}
+
+.window.dark #main .content-tab:hover {
+    background: #1f1f1f;
+}
+
+.window.dark #main .content-tab.selected {
+    background: #232323;
+    color: #d0d0d0;
+}
+
+.window.dark #encyclopedia {
+    background: #1d1d1d;
+}
+
+.window.dark #encyclopedia .entry-notes-section {
+    border-color: #303030;
+    background: #232323;
+}
+
+.window.dark #encyclopedia .encyclopedia-subtabs {
+    border-bottom: 1px solid #303030;
+}
+
+.window.dark #encyclopedia .encyclopedia-subtab {
+    background: #1f1f1f;
+    color: #8e8e8e;
+    border-right: 1px solid #303030;
+}
+
+.window.dark #encyclopedia .encyclopedia-subtab.selected {
+    background: #232323;
+    color: #d0d0d0;
+}
+
+.window.dark #encyclopedia .entry-list-column {
+    border-right: 1px solid #303030;
+}
+
+.window.dark #encyclopedia h4,
+.window.dark #encyclopedia h5 {
+    color: #b6b6b6;
+}
+
+.window.dark #encyclopedia .story-notes-input,
+.window.dark #encyclopedia .entry-notes-input {
+    background: #2a2a2a;
+    border: 1px solid #404040;
+    color: #cfcfcf;
+}
+
+.window.dark #encyclopedia .entry-notes-input:disabled {
+    background: #242424;
+}
+
+.window.dark #encyclopedia .entry-list li {
+    color: #b5b5b5;
+}
+
+.window.dark #encyclopedia .entry-list li:hover {
+    background: #2b2b2b;
+}
+
+.window.dark #encyclopedia .entry-list li.selected {
+    background: #2f3435;
+    border-color: #435053;
+    color: #d8d8d8;
+}

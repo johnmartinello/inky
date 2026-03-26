@@ -26,10 +26,12 @@ const InkProject = require("./inkProject.js").InkProject;
 const NavHistory = require("./navHistory.js").NavHistory;
 const GotoAnything = require("./goto.js").GotoAnything;
 const i18n = require("./i18n.js");
+const EncyclopediaView = require("./encyclopediaView.js").EncyclopediaView;
 
 // "split" | "editorOnly" | "previewOnly"
 let viewMode = "split";
 let previewSplitState = null;
+let contentTab = "script";
 
 function updateToolbarViewButtons() {
     $("#toolbar .preview-toggle.button").toggleClass("selected", viewMode !== "editorOnly");
@@ -88,10 +90,33 @@ function setPreviewVisible(visible) {
     setViewMode(visible ? "split" : "editorOnly");
 }
 
+function updateContentTabButtons() {
+    $("#main .content-tab").removeClass("selected");
+    $(`#main .content-tab[data-content-tab='${contentTab}']`).addClass("selected");
+}
+
+function setContentTab(tabName) {
+    if( tabName !== "script" && tabName !== "encyclopedia" )
+        return;
+
+    if( contentTab === tabName )
+        return;
+
+    contentTab = tabName;
+    $("#main").toggleClass("showingEncyclopedia", contentTab === "encyclopedia");
+    updateContentTabButtons();
+
+    if( contentTab === "script" ) {
+        setImmediate(() => ace.edit("editor").resize());
+        EditorView.focus();
+    }
+}
+
 InkProject.setEvents({
     "newProject": (project) => {
         EditorView.focus();
         LiveCompiler.setProject(project);
+        EncyclopediaView.setProject(project);
         var filename = project.activeInkFile.filename();
         ToolbarView.setTitle(filename);
         NavView.setMainInkFilename(filename);
@@ -103,6 +128,8 @@ InkProject.setEvents({
         ToolbarView.setTitle(activeInk.filename());
         NavView.setMainInkFilename(InkProject.currentProject.mainInk.filename());
         NavView.highlightRelativePath(activeInk.relativePath());
+        EncyclopediaView.projectSaved();
+        EncyclopediaView.queueInferenceSync();
     },
     "didSwitchToInkFile": (inkFile) => {
         var filename = inkFile.filename();
@@ -113,12 +140,20 @@ InkProject.setEvents({
         setImmediate(() => EditorView.setErrors(fileIssues));
         NavView.updateCurrentKnot(inkFile, EditorView.getCurrentCursorPos());
         NavHistory.addStep();
+        EncyclopediaView.queueInferenceSync();
     }
 });
 
 // Wait for DOM to be ready before kicking most stuff off
 // (some of the views get confused otherwise)
 $(document).ready(() => {
+    updateContentTabButtons();
+    $("#main .content-tab").on("click", (event) => {
+        const tabName = $(event.currentTarget).attr("data-content-tab");
+        setContentTab(tabName);
+        event.preventDefault();
+    });
+
     if( InkProject.currentProject == null ) {
         InkProject.startNew();
         // Debug
@@ -152,6 +187,7 @@ LiveCompiler.setEvents({
         PlayerView.prepareForNewPlaythrough(sessionId);
         EditorView.clearErrors();
         ToolbarView.clearIssueSummary();
+        EncyclopediaView.queueInferenceSync();
     },
     selectIssue: gotoIssue,
     textAdded: (text) => {
@@ -289,6 +325,7 @@ EditorView.setEvents({
     "change": () => {
         LiveCompiler.setEdited();
         NavView.setKnots(InkProject.currentProject.activeInkFile);
+        EncyclopediaView.queueInferenceSync();
     },
     "jumpToSymbol": (symbolName, contextPos) => {
         var foundSymbol = InkProject.currentProject.findSymbol(symbolName, contextPos);

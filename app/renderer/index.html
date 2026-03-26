@@ -89,6 +89,11 @@
       <div class="window-content">
 
         <div id="main">
+          <div class="content-tabs">
+            <button type="button" class="content-tab selected i18n" data-content-tab="script">Script</button>
+            <button type="button" class="content-tab i18n" data-content-tab="encyclopedia">Encyclopedia</button>
+          </div>
+
            <div class="sidebar hidden">
 
             
@@ -143,6 +148,32 @@
                 </div>
               </div>
 
+            </div>
+          </div>
+
+          <div id="encyclopedia">
+            <div class="story-notes-section">
+              <h4 class="i18n">Story Notes</h4>
+              <textarea class="story-notes-input i18n" placeholder="High-level notes about your story world, arc, themes, and pacing."></textarea>
+            </div>
+
+            <div class="entry-notes-section">
+              <div class="encyclopedia-subtabs">
+                <button type="button" class="encyclopedia-subtab selected i18n" data-encyclopedia-tab="chapters">Chapters</button>
+                <button type="button" class="encyclopedia-subtab i18n" data-encyclopedia-tab="characters">Characters</button>
+              </div>
+
+              <div class="entry-notes-content">
+                <div class="entry-list-column">
+                  <h5 class="entry-list-title i18n">Chapters</h5>
+                  <ul class="entry-list"></ul>
+                </div>
+                <div class="entry-editor-column">
+                  <h5 class="entry-editor-title"></h5>
+                  <textarea class="entry-notes-input i18n" placeholder="Write your notes for this entry."></textarea>
+                  <p class="entry-editor-empty i18n">No entries detected yet.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

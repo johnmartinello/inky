@@ -519,6 +519,200 @@ img.issue-icon.warning {
   top: 34px;
 }
 
+#main .content-tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 34px;
+  border-bottom: 1px solid #DDD;
+  background: #FBFBFB;
+  display: flex;
+  align-items: stretch;
+  z-index: 20;
+}
+
+#main .content-tab {
+  border: 0;
+  border-right: 1px solid #DDD;
+  background: transparent;
+  color: #666;
+  min-width: 120px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 16px;
+}
+
+#main .content-tab:last-child {
+  border-right: 0;
+}
+
+#main .content-tab:hover {
+  background: #F1F1F1;
+}
+
+#main .content-tab.selected {
+  background: white;
+  color: #222;
+}
+
+#main .sidebar,
+#main > .split,
+#main > .twopane,
+#main > #encyclopedia {
+  top: 34px;
+}
+
+#main.showingEncyclopedia .sidebar,
+#main.showingEncyclopedia > .split,
+#main.showingEncyclopedia > .twopane {
+  display: none !important;
+}
+
+#encyclopedia {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px;
+  overflow-y: auto;
+  background: #f7f7f7;
+  display: none;
+  z-index: 5;
+}
+
+#main.showingEncyclopedia #encyclopedia {
+  display: block;
+}
+
+#encyclopedia h4,
+#encyclopedia h5 {
+  margin: 0 0 8px 0;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  color: #4f4f4f;
+}
+
+#encyclopedia .story-notes-section {
+  margin-bottom: 12px;
+}
+
+#encyclopedia .story-notes-input,
+#encyclopedia .entry-notes-input {
+  width: 100%;
+  border: 1px solid #d6d6d6;
+  border-radius: 4px;
+  padding: 10px;
+  font-family: Monaco, "Courier New", monospace;
+  font-size: 12px;
+  resize: vertical;
+  background: #fff;
+  color: #444;
+}
+
+#encyclopedia .story-notes-input {
+  min-height: 110px;
+}
+
+#encyclopedia .entry-notes-section {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+}
+
+#encyclopedia .encyclopedia-subtabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+#encyclopedia .encyclopedia-subtab {
+  border: 0;
+  border-right: 1px solid #ddd;
+  background: #f6f6f6;
+  color: #666;
+  min-width: 120px;
+  height: 34px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 14px;
+}
+
+#encyclopedia .encyclopedia-subtab:last-child {
+  border-right: 0;
+}
+
+#encyclopedia .encyclopedia-subtab.selected {
+  background: #fff;
+  color: #222;
+}
+
+#encyclopedia .entry-notes-content {
+  display: flex;
+  min-height: 280px;
+}
+
+#encyclopedia .entry-list-column {
+  width: 260px;
+  border-right: 1px solid #ddd;
+  padding: 12px;
+}
+
+#encyclopedia .entry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+#encyclopedia .entry-list li {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 6px 8px;
+  color: #555;
+  font-size: 12px;
+}
+
+#encyclopedia .entry-list li:hover {
+  background: #f2f2f2;
+}
+
+#encyclopedia .entry-list li.selected {
+  border-color: #dedede;
+  background: #ececec;
+  color: #222;
+  font-weight: bold;
+}
+
+#encyclopedia .entry-editor-column {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+#encyclopedia .entry-editor-title {
+  min-height: 18px;
+}
+
+#encyclopedia .entry-notes-input {
+  min-height: 220px;
+  flex: 1;
+}
+
+#encyclopedia .entry-notes-input:disabled {
+  background: #f3f3f3;
+}
+
+#encyclopedia .entry-editor-empty {
+  color: #888;
+  font-style: italic;
+}
+
 #editor {
   display: block;
   position: absolute;
